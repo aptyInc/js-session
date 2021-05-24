@@ -1,5 +1,5 @@
-# References:
+# Spread Operator
 
-## Spread Operator:
+## References:
 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax

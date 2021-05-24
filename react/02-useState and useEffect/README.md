@@ -1,29 +1,35 @@
-useState and useEffect
+# useState and useEffect
 
-Resources
+## Resources
 
-Counter example using useState : https://codesandbox.io/s/stoic-davinci-2zhgc?file=/src/App.js:0-404
+- ### Counter example using useState :
 
-UseState example with checkboxes : https://codesandbox.io/s/tender-cdn-ge59w?file=/src/constants.js
+  -https://codesandbox.io/s/stoic-davinci-2zhgc?file=/src/App.js:0-404
 
-useEffect example : https://codesandbox.io/s/xenodochial-shockley-grxjj?file=/src/App.js
+- ### UseState example with checkboxes :
+  -https://codesandbox.io/s/tender-cdn-ge59w?file=/src/constants.js
 
-Exercise links
+## useEffect example :
 
-User Login Example
+- https://codesandbox.io/s/xenodochial-shockley-grxjj?file=/src/App.js
 
-Navya : https://codesandbox.io/s/reverent-davinci-2in46?file=/src/form.js
+## Exercise links
 
-Sumanth : https://codesandbox.io/s/angry-dirac-cr2cl?file=/src/styles.css
+- ### User Login Example
 
-Pooja : https://codesandbox.io/s/ancient-waterfall-6jzt8?file=/src/UserForm.js
+  - Navya : https://codesandbox.io/s/reverent-davinci-2in46?file=/src/form.js
 
-Display Users based on Search term
+  - Sumanth : https://codesandbox.io/s/angry-dirac-cr2cl?file=/src/styles.css
 
-API link for exercise https://jsonplaceholder.typicode.com/users
+  - Pooja : https://codesandbox.io/s/ancient-waterfall-6jzt8?file=/src/UserForm.js
 
-Navya : https://codesandbox.io/s/agitated-leftpad-wig1q?file=/src/search.js
+- ### Display Users based on Search term
 
-Sumanth : https://codesandbox.io/s/quizzical-shockley-hduo3
+  API link for exercise
+  https://jsonplaceholder.typicode.com/users
 
-Pooja : https://codesandbox.io/s/peaceful-shape-7w9nv?file=/src/App.js
+  - Navya : https://codesandbox.io/s/agitated-leftpad-wig1q?file=/src/search.js
+
+  - Sumanth : https://codesandbox.io/s/quizzical-shockley-hduo3
+
+  - Pooja : https://codesandbox.io/s/peaceful-shape-7w9nv?file=/src/App.js
