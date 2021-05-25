@@ -17,4 +17,6 @@ This is collections of examples and sample code that we have discussed and writt
     ├── README.md   
     └──
     ```
-2. Always have README with references to specific feature. 
+2. Always have README in feature folder with references to specific feature. 
+
+3. Do not merge code directly to **master** branch
