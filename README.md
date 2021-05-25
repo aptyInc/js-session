@@ -12,14 +12,16 @@ This is collections of examples and sample code that we have discussed and writt
     │   ├── README.md 
     ├── README.md   
     └── ...
-
-    .
-├── ...
-├── test                    # Test files (alternatively `spec` or `tests`)
-│   ├── benchmarks          # Load and stress tests
-│   ├── integration         # End-to-end, integration tests (alternatively `e2e`)
-│   └── unit                # Unit tests
-└── ...
-
-
 2. Always have README with references to specific feature. 
+
+app
+└── screens
+    └── App
+        └── screens
+            ├── Admin
+            │   └── screens
+            │       ├── Reports
+            │       └── Users
+            └── Course
+                └── screens
+                    └── Assignments
