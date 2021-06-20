@@ -28,6 +28,13 @@ function factor(number , callback) {
       callback(err,null);
       return;
     }
+    if(number<0)
+    {
+      err = true;
+      // callback is a error first function, since first arguments is error and second is data
+      callback(err,null);
+      return;
+    }  
 
   const result = factorial(number);
   // callback is a error first function, since first arguments is error and second is data
