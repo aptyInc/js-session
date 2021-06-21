@@ -10,8 +10,8 @@ function factorial(number)
 }
 
 /*
-//Stack
 
+//Stack
 function factor(number)
 { //Web Api
   setTimeout( () => {
@@ -20,18 +20,14 @@ function factor(number)
     console.log("Error is caught");
   }  
   return (factorial(number));
-  
   } ,1000);
 }
-
 console.log(factor(5));
-Output:
+Output:undefined 
 
-undefined 
-
-We will be solving this problem using callback
+why undefined??Because the function factor is not returning anything and the setTimeout function will return anything after 1000 seconds.This is the reason why it is returning undefined.
+The setTimeout function loads “asynchronously”, as it starts loading now, but runs later, when the function has already finished.
 */
-
 
 //callback function example
 //A function goes into Web Api if it satisty any of the two conditions: Callback or promises.
@@ -44,12 +40,10 @@ function factor(number , callback) {
     {
       err=true;
     }
-     
      if(err)
      {
        return callback(err,null);
      }
-  
   data = factorial(number);
   return callback(null , data);
 },1000);
