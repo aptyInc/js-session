@@ -1,38 +1,55 @@
-// synchronous callback
-
+//simple example using callback function
 function add(a,b,callback){
     let sum = a+b;
-    callback(sum);
+    let err = typeof sum != 'number';
+    if(err)
+    return callback(err,null);
+    callback(null,sum); 
 }
 
-function additionPossible(sum){
-    if(typeof sum === 'number') 
-    console.log("The sum of the numbers is:", sum);
+function additionPossible(err,data){
+    if(err) 
+    console.error("Enter valid numbers.Numbers not valid!!");
     else
-    console.log("Cannot find sum");
+    console.log("The sum of the numbers is:", data);
 }
 
-add("a", 5, additionPossible);
+add(7, 5, additionPossible);
 
+//Another example using filesystem module
+//The given example reads a file, updates it and deletes the file which is not required.
+//Appropriate callback function is called based on whether the function gives error or not. 
 
-// asynchronous callback
+var fs = require('fs');
 
-function identity(firstName, lastName,callback){
-   console.log("Displaying your name....");
-   if(firstName && lastName)
-   console.log("Your full name is",firstName+" " +lastName);
+function fileUpdate(callback){
 
-    callback(firstName==null);
-}
-
-function check (err){
-        setTimeout(()=>{
+    fs.readFile('./Personaltxt.txt', { encoding: 'utf-8' }, (err, data) => {
+        if(err)
+        return callback(err,null);
+        fs.appendFile('./Personaltxt.txt', 'Designation: Software Engineer', err =>{
             if(err)
-            console.log("You committed a mistake!! Please enter your first name");
-            else
-            console.log("You entered a valid name");
-         } ,2000);
-    
+            return callback(err,null);
+            fs.readFile('./Personaltxt.txt', {encoding: 'utf-8'}, (err,dataup)=>{
+                if(err)
+                return callback(err,null);
+                callback(null,dataup);
+                fs.unlink('./Personal.docx', err => {
+                    if (err) 
+                    callback(err,null);
+                    console.log('File deleted!');
+                })
+            })
+        })
+    })
 }
 
-identity(null, "Anderson", check);
+
+
+fileUpdate((err,data)=>{
+    if(err)
+    console.error("The following error occured",err);
+    else
+    console.log(data);
+});
+//A very bad way of writing code as it is difficult to debug and read. This can be improved using promises.
