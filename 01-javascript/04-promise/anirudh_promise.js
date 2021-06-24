@@ -8,18 +8,18 @@ function readfiles()
 {
   return new Promise((res, rej) => {
     fsPromises.readFile('./index.js',{encoding:'utf-8'})
-          .then(data => {
-                 fsPromises.readFile('./anirudhsinghtomar.js',{encoding:'utf-8'})
-                    .then(datab => {
-                       return res({data,datab})
-                                   })
-                    .catch(errr => {
-                       return rej(errr)
-                                    })
-                         })
-         .catch(err => {
-                 return rej(err);
-                       })
+     .then(data => {
+       fsPromises.readFile('./anirudhsinghtomar.js',{encoding:'utf-8'})
+          .then(datab => {
+            return res({data,datab})
+          })
+          .catch(errr => {
+            return rej(errr)
+         })
+    })
+    .catch(err => {
+       return rej(err);
+     })
   })
 
 }
@@ -31,6 +31,7 @@ rea.then(data => {
 .catch(err => {
     console.log(err);
 });
+
 
 
 
