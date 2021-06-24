@@ -8,9 +8,9 @@ const fsPromises = require('fs').promises;
 function readfiles()
 {
   return new Promise((res, rej) => {
-    fsPromises.readFile('./index.js',{encoding:'utf-8'})
+    fsPromises.readFile('./sample_1.js',{encoding:'utf-8'})
      .then(data => {
-       fsPromises.readFile('./anirudhsinghtomar.js',{encoding:'utf-8'})
+       fsPromises.readFile('./sample_2.js',{encoding:'utf-8'})
           .then(datab => {
             return res({data,datab})
           })
@@ -46,9 +46,9 @@ const readFile = util.promisify(fs.readFile);
 function readfiles()
 {
   return new Promise((res, rej) => {
-   readFile('./index.js' , {encoding:'utf-8'})
+   readFile('./sample_1.js' , {encoding:'utf-8'})
     .then(data => {
-       readFile('./anirudhsinghtomar.js' , {encoding : 'utf-8'})
+       readFile('./sample_2.js' , {encoding : 'utf-8'})
         .then(datab => {
           return res({data,datab});
          })
@@ -81,12 +81,12 @@ rea.then(data => {
 function readfiles()
 {
   return new Promise((res, rej) => {
-    readFile('./index.js' , {encoding:'utf-8'},(err,data) =>{
+    readFile('./sample_1.js' , {encoding:'utf-8'},(err,data) =>{
      if(err)
       {
       return rej(err)
       }
-    readFile('./anirudhsinghtomar.js' , {encoding : 'utf-8'} ,(err,datab) =>{
+    readFile('./sample_2.js' , {encoding : 'utf-8'} ,(err,datab) =>{
     if(err)
       {
       return rej(err)
