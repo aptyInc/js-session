@@ -16,19 +16,25 @@ function ReadFilePromise(path)
 async function readFiles()
 {
   let count=0;
-let paths=['./anirdhsinghtomar.js','./index.js'];
-let content;
+  let errorrr=0;
+let paths=['./anirudhsinghtomar.js','./indx.js'];
+let content =[];
 for(const file of paths)
 {  count++;
    try {
-     content = await ReadFilePromise(file);
+     content.push(await ReadFilePromise(file));
    } catch(err) {
+     errorrr++;
      if(count===1)
-     console.log("File 1 mentioned is not found");
+     console.log("File 1 ");
+
      else if(count==2)
-     console.log("File 2 mentioned is not found");
+     console.log("File 2");
    }
+
+
  }
- console.log({content});
+if(errorrr===0)
+console.log({content});
 }
 readFiles();
