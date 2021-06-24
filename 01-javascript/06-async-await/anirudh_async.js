@@ -18,7 +18,7 @@ async function readFiles()
   let count=0;
   //if error found in any step its value will be incremented. 
   let errorrr=0;
-  let paths=['./anirudhsinghtomar.js','./index.js'];
+  let paths=['./sample_1.js','./sample_2.js'];
   //arrsy to store content of the file which it want to read
   let content =[];
   //running loop for both the files....
@@ -65,12 +65,12 @@ async function readFiles()
   let databdisc;
   try{
 
-    const data = await ReadFilePromise('./anirdhsinghtomar.js');
+    const data = await ReadFilePromise('./sample_1.js');
     if(data)
     {
        datadisc = true;
     }
-    const datab = await ReadFilePromise('./index.js');
+    const datab = await ReadFilePromise('./sample_2.js');
     if(datab)
     {
     databdisc = true;
