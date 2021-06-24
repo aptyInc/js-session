@@ -1,9 +1,10 @@
 //Method 1
 const{readFile} = require('fs');
+//Generates a promise version of the readFile
 const fsPromises = require('fs').promises;
 
 
-
+//Funcion wil return promise
 function readfiles()
 {
   return new Promise((res, rej) => {
@@ -45,20 +46,20 @@ const readFile = util.promisify(fs.readFile);
 function readfiles()
 {
   return new Promise((res, rej) => {
-    readFile('./index.js' , {encoding:'utf-8'})
-       .then(data => {
-            readFile('./anirudhsinghtomar.js' , {encoding : 'utf-8'})
-               .then(datab => {
-                     return res({data,datab});
-                              })
-               .catch(err => {
-                     return  rej(err);
-                              })
-                       })
-        .catch(err => {
-              return  rej(err)
+   readFile('./index.js' , {encoding:'utf-8'})
+    .then(data => {
+       readFile('./anirudhsinghtomar.js' , {encoding : 'utf-8'})
+        .then(datab => {
+          return res({data,datab});
+         })
+         .catch(err => {
+           return  rej(err);
+     })
     })
-  })
+    .catch(err => {
+     return  rej(err)
+   })
+ })
 }
 
 const rea = readfiles();
