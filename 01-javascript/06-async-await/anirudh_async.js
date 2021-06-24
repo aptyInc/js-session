@@ -24,11 +24,11 @@ for(const file of paths)
      content = await ReadFilePromise(file);
    } catch(err) {
      if(count===1)
-     console.log("File 1 ");
+     console.log("File 1 mentioned is not found");
      else if(count==2)
-     console.log("File 2");
+     console.log("File 2 mentioned is not found");
    }
  }
- return content;
+ console.log({content});
 }
 readFiles();
