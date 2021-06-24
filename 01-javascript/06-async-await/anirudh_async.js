@@ -17,7 +17,7 @@ async function readFiles()
 { //variable to see the path through which the error is generated.
   let count=0;
   //if error found in any step its value will be incremented. 
-  let errorrr=0;
+  let errVar=0;
   let paths=['./sample_1.js','./sample_2.js'];
   //arrsy to store content of the file which it want to read
   let content =[];
@@ -28,7 +28,7 @@ async function readFiles()
     try {
       content.push(await ReadFilePromise(file));
     } catch(err) {
-      errorrr++;
+      errVar++;
       if(count===1)
       console.log("File 1 ");
 
@@ -36,7 +36,7 @@ async function readFiles()
       console.log("File 2");
    }   
   }
-  if(errorrr===0)
+  if(errVar===0)
    console.log({content});
 }
 
@@ -50,13 +50,13 @@ const {readFile} = require('fs');
 function ReadFilePromise(path)
 {
   return new Promise((res, rej) => {
-    readFile(path , {encoding:'utf-8'},(err,data) =>{
-     if(err)
-      return rej(err);
+   readFile(path , {encoding:'utf-8'},(err,data) =>{
+    if(err)
+     return rej(err);
 
-      return res(data);
-    })
-})
+     return res(data);
+   });
+ });
 }
 
 async function readFiles()
@@ -64,28 +64,24 @@ async function readFiles()
   let datadisc ;
   let databdisc;
   try{
-
     const data = await ReadFilePromise('./sample_1.js');
     if(data)
     {
        datadisc = true;
     }
-    const datab = await ReadFilePromise('./sample_2.js');
-    if(datab)
+    const data2 = await ReadFilePromise('./sample_2.js');
+    if(data2)
     {
     databdisc = true;
     }
-    console.log({data,datab});
+    console.log({data,data2});
+  }catch(err){
+    if(!datadisc)
+     console.log("sample_1.js file is not found");
+
+    else if(!databdisc)
+     console.log("sample_2.js file is not found");
   }
-    catch(err)
-    {
-      if(!datadisc)
-      console.log("sample_1.js file is not found");
-
-      else if(!databdisc)
-      console.log("sample_2.js file is not found");
-    }
-
 }
 
 
