@@ -17,7 +17,7 @@ async function readFiles()
 {
   let count=0;
   let errorrr=0;
-let paths=['./anirudhsinghtomar.js','./indx.js'];
+let paths=['./anirudhsinghtomar.js','./index.js'];
 let content =[];
 for(const file of paths)
 {  count++;
