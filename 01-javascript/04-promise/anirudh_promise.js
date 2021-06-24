@@ -1,6 +1,3 @@
-//Method 1
-const{readFile} = require('fs');
-//Generates a promise version of the readFile
 const fsPromises = require('fs').promises;
 
 
@@ -8,20 +5,21 @@ const fsPromises = require('fs').promises;
 function readfiles()
 {
   return new Promise((res, rej) => {
+    //Chaining of promises,when then there is no error in reading both the files then read both the files together otherwise throw error
     fsPromises.readFile('./sample_1.js',{encoding:'utf-8'})
-     .then(data => {
+     .then(data1 => {
        fsPromises.readFile('./sample_2.js',{encoding:'utf-8'})
-          .then(datab => {
-            return res({data,datab})
-          })
-          .catch(errr => {
-            return rej(errr)
-         })
-    })
-    .catch(err => {
-       return rej(err);
+        .then(data2 => {
+          return res({data1,data2});
+        })
+        .catch(err1 => {
+          return rej(err1);
+        })
      })
-  })
+     .catch(err2 => {
+       return rej(err2);
+     })
+  });
 
 }
 
@@ -47,17 +45,17 @@ function readfiles()
 {
   return new Promise((res, rej) => {
    readFile('./sample_1.js' , {encoding:'utf-8'})
-    .then(data => {
+    .then(data1 => {
        readFile('./sample_2.js' , {encoding : 'utf-8'})
-        .then(datab => {
-          return res({data,datab});
+        .then(data2 => {
+          return res({data1,data2});
          })
-         .catch(err => {
-           return  rej(err);
+         .catch(err1 => {
+           return  rej(err1);
      })
     })
-    .catch(err => {
-     return  rej(err)
+    .catch(err2 => {
+     return  rej(err2)
    })
  })
 }
@@ -81,17 +79,17 @@ rea.then(data => {
 function readfiles()
 {
   return new Promise((res, rej) => {
-    readFile('./sample_1.js' , {encoding:'utf-8'},(err,data) =>{
+    readFile('sample_1.js' , {encoding:'utf-8'},(err,data1) =>{
      if(err)
       {
       return rej(err)
       }
-    readFile('./sample_2.js' , {encoding : 'utf-8'} ,(err,datab) =>{
+    readFile('./sample_2.js' , {encoding : 'utf-8'} ,(err,data2) =>{
     if(err)
       {
       return rej(err)
       }
-      res({data,datab});
+      res({data1,data2});
     })
   })
 })
