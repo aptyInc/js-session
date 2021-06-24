@@ -80,10 +80,10 @@ async function readFiles()
     catch(err)
     {
       if(!datadisc)
-      console.log("Anirudhsinghtomar.js file is not found");
+      console.log("sample_1.js file is not found");
 
       else if(!databdisc)
-      console.log("index,js file is not found");
+      console.log("sample_2.js file is not found");
     }
 
 }
