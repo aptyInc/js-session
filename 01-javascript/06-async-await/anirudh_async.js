@@ -1,25 +1,27 @@
 const {readFile} = require('fs');
 
-
+//Function returns promise
 function ReadFilePromise(path)
 {
   return new Promise((res, rej) => {
-    readFile(path , {encoding:'utf-8'},(err,data) =>{
-     if(err)
-      return rej(err);
+   readFile(path , {encoding:'utf-8'},(err,data) =>{
+    if(err)
+     return rej(err);
 
-      return res(data);
-    })
-})
+     return res(data);
+   });
+ });
 }
 
 async function readFiles()
-{
+{ //variable to see the path through which the error is generated.
   let count=0;
+  //if error found in any step its value will be incremented. 
   let errorrr=0;
   let paths=['./anirudhsinghtomar.js','./index.js'];
+  //arrsy to store content of the file which it want to read
   let content =[];
- 
+  //running loop for both the files....
   for(const file of paths)
   {
     count++;
@@ -34,7 +36,7 @@ async function readFiles()
       console.log("File 2");
    }   
   }
-   if(errorrr===0)
+  if(errorrr===0)
    console.log({content});
 }
 
