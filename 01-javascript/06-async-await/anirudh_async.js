@@ -29,6 +29,7 @@ async function readFiles()
       content.push(await ReadFilePromise(file));
     } catch(err) {
       errVar++;
+     
       if(count===1)
       console.log("File 1 ");
 
@@ -64,18 +65,22 @@ async function readFiles()
   let datadisc ;
   let databdisc;
   try{
+    
     const data = await ReadFilePromise('./sample_1.js');
     if(data)
     {
        datadisc = true;
     }
+    
     const data2 = await ReadFilePromise('./sample_2.js');
     if(data2)
     {
-    databdisc = true;
+       databdisc = true;
     }
+    
     console.log({data,data2});
   }catch(err){
+    
     if(!datadisc)
      console.log("sample_1.js file is not found");
 
