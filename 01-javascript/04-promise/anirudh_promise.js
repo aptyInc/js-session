@@ -52,7 +52,7 @@ function readfiles()
          })
          .catch(err1 => {
            return  rej(err1);
-     })
+         })
     })
     .catch(err2 => {
      return  rej(err2)
@@ -79,21 +79,25 @@ rea.then(data => {
 function readfiles()
 {
   return new Promise((res, rej) => {
-    readFile('sample_1.js' , {encoding:'utf-8'},(err,data1) =>{
+   
+   readFile('sample_1.js' , {encoding:'utf-8'},(err,data1) =>{
      if(err)
       {
       return rej(err)
       }
-    readFile('./sample_2.js' , {encoding : 'utf-8'} ,(err,data2) =>{
-    if(err)
-      {
-      return rej(err)
-      }
+    
+     readFile('./sample_2.js' , {encoding : 'utf-8'} ,(err,data2) =>{
+      if(err)
+       {
+       return rej(err)
+       }
+     
       res({data1,data2});
-    })
-  })
-})
+     })
+   })
+ })
 }
+
 const rea = readfiles();
 rea.then(data => {
     console.log(data);
