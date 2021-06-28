@@ -39,27 +39,24 @@ rea.then(data => {
 /*const fs = require('fs');
 const util = require('util');
 const readFile = util.promisify(fs.readFile);
-
-
 function readfiles()
 {
   return new Promise((res, rej) => {
-   readFile('./sample_1.js' , {encoding:'utf-8'})
-    .then(data1 => {
-       readFile('./sample_2.js' , {encoding : 'utf-8'})
-        .then(data2 => {
-          return res({data1,data2});
-        })
-        .catch(err1 => {
-          return  rej(err1);
-        })
+    readFile('./sample_1.js' , {encoding:'utf-8'})
+     .then(data1 => {
+        readFile('./sample_2.js' , {encoding : 'utf-8'})
+         .then(data2 => {
+           return res({data1,data2});
+         })
+         .catch(err1 => {
+           return  rej(err1);
+         })
+     })
+     .catch(err2 => {
+      return  rej(err2)
     })
-    .catch(err2 => {
-     return  rej(err2)
-   })
- })
+  })
 }
-
 const rea = readfiles();
 rea.then(data => {
     console.log(data);
@@ -73,9 +70,6 @@ rea.then(data => {
 
  //Original
 /*const {readFile} = require('fs');
-
-
-
 function readfiles()
 {
   return new Promise((res, rej) => {
@@ -94,7 +88,6 @@ function readfiles()
     })
   })
 }
-
 const rea = readfiles();
 rea.then(data => {
     console.log(data);
