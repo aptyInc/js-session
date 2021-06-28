@@ -49,10 +49,10 @@ function readfiles()
        readFile('./sample_2.js' , {encoding : 'utf-8'})
         .then(data2 => {
           return res({data1,data2});
-         })
-         .catch(err1 => {
-           return  rej(err1);
-         })
+        })
+        .catch(err1 => {
+          return  rej(err1);
+        })
     })
     .catch(err2 => {
      return  rej(err2)
@@ -80,22 +80,19 @@ function readfiles()
 {
   return new Promise((res, rej) => {
    
-   readFile('sample_1.js' , {encoding:'utf-8'},(err,data1) =>{
+    readFile('sample_1.js' , {encoding:'utf-8'},(err,data1) =>{
      if(err)
-      {
       return rej(err)
-      }
-    
-     readFile('./sample_2.js' , {encoding : 'utf-8'} ,(err,data2) =>{
-      if(err)
-       {
-       return rej(err)
-       }
+      
+      readFile('./sample_2.js' , {encoding : 'utf-8'} ,(err,data2) =>{
+       if(err)
+        return rej(err)
+       
      
-      res({data1,data2});
-     })
-   })
- })
+       res({data1,data2});
+      })
+    })
+  })
 }
 
 const rea = readfiles();
