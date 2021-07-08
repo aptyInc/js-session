@@ -1,0 +1,3 @@
+https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers
+
+https://www.html5rocks.com/en/tutorials/workers/basics/
