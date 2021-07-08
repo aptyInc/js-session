@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Task 1</title>
+      <style>
+         h2 {
+         color: maroon;
+         }
+         body {
+         background-color: pink;
+         font-size: 130%;
+         }
+      </style>
+   </head>
+   <body id="body of the page" class="body of the page class" >
+      <h1 id="Main Heading Task 1 " class ="Heading Task 1" >Task 1</h1>
+      <h2 id="SubHeading Paragraph 1 " class="Subheading Paragraph 1">Paragraph 1</h2>
+      <p id="Paragraph 1"  >
+      <ul>
+         <li id="Unordered list:Session 1" class="Ul">Session 1</li>
+         <li id="Unordered list:Session 2" class="Ul">Session 2</li>
+      </ul>
+      </p>
+      <h2 id="SubHeading Paragraph 2" class="Paragraph">Paragraph 2</h2>
+      <p style="text-align: center;" id="Centered Text" class="text">I am centered!<br>
+         <button type="button" id="Button"class="Click on it">Click on it</button>
+      </p>
+      <script>
+         document.body.addEventListener("click",(call) =>{
+         console.log("Id = ", call.target.id);
+           console.log("Class=" ,call.target.className)
+         });
+      </script> 
+   </body>
+</html>
