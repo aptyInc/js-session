@@ -1,0 +1,130 @@
+<html>
+  <head>
+    <title>iFrames Session</title>
+    <style>
+      .box {
+        width:200px; height:200px; border:1px solid black;
+      }
+    </style>
+  </head>
+  <body style="border: 1px solid black">
+    <div id='main-frame-1-div' style="width:200px; height:200px; border:1px solid black;max-height: 200px;overflow: scroll;">
+      <h5>Hey I am Main Window</h5>
+      <input type="text" id="main-frame-input"/>
+      <button onclick="sendMessage()" id="main-frame-send">Send</button>
+      <div id="main-frame-messages">
+        <h6>Messages</h4>
+      </div>
+    </div>
+    <div class=".box" id='iframe-div1'></div>
+    <div class=".box" id='iframe-div2'></div>
+    <script>
+      var workflow = {
+        name: 'frames flow',
+        steps: [
+          {
+            name: 'step1',
+            content: 'Send message to iframe1',
+            iframes: [],
+            selector: '#main-frame-send',
+            type: 'click'
+          },
+          {
+            name: 'step2',
+            content: 'Send message to main',
+            iframes: ['#iframe1'],
+            selector: '#iframe-send',
+            type: 'click'
+          }
+        ]
+      };
+      function sendMessage(){
+        var input = document.getElementById('main-frame-input');
+        console.log('input ', input.value)
+        var message = {message: input.value};
+        window.postMessage(message, '*')
+        var iframe1 = document.getElementById('iframe1');
+        iframe1.contentWindow.postMessage(message, '*')
+        var iframe2 = document.getElementById('iframe2');
+        iframe2.contentWindow.postMessage(message, '*')
+      }
+
+      window.addEventListener('message', function(event){
+        console.log('In main window', event);
+        var div = document.getElementById('main-frame-messages');
+        var ele = document.createElement('div');
+        ele.innerHTML=event.data.message;
+        div.appendChild(ele)
+      });
+
+      var div1 = document.getElementById('iframe-div1');
+      var iframe = document.createElement('iframe');
+      iframe.setAttribute('id', 'iframe1');
+      iframe.setAttribute('src', 'about:blank');
+      div1.appendChild(iframe);
+      var iframeWindow = iframe.contentWindow;
+      var iframeDocument = iframe.contentDocument || iframeWindow.document;
+      iframeDocument.open();
+      iframeDocument.write(`
+        <script>
+          console.log('iframe 1');
+          window.addEventListener('message', function(event){
+            console.log('In iframe 1 window', event);
+            var div = document.getElementById('iframe-messages');
+            var ele = document.createElement('div');
+            ele.innerHTML=event.data.message;
+            div.appendChild(ele)
+          });
+          function sendMessage(){
+            var input = document.getElementById('iframe-input');
+            console.log('input ', input.value)
+            var message = {message: input.value};
+            // To send message in document
+            window.postMessage(message, '*')
+            // To send message to parent document
+            window.top.postMessage(message, '*')
+            // To send message to all documents
+            window.top.getElementByTag('iframe')
+          }
+        <\/script>
+        <div id='iframe-1-div' style="max-height: 200px;overflow: scroll;">
+          <h5>Hey I am iFrame1</h5>
+          <input type="text" id="iframe-input"/>
+          <button onclick="sendMessage()" id="iframe-send">Send</button>
+          <div id="iframe-messages">
+            <h6>Messages</h4>
+          </div>
+        </div>`);
+      iframeDocument.close();
+
+      var div2 = document.getElementById('iframe-div2');
+      var iframe = document.createElement('iframe');
+      iframe.setAttribute('id', 'iframe2');
+      iframe.setAttribute('src', 'about:blank');
+      div2.appendChild(iframe);
+      var iframeWindow = iframe.contentWindow;
+      var iframeDocument = iframe.contentDocument || iframeWindow.document;
+      iframeDocument.open();
+      iframeDocument.write(`
+        <script>
+          console.log('iframe 2');
+          window.addEventListener('message', function(event){
+            console.log('In iframe 2 window', event)
+            var div = document.getElementById('iframe-messages');
+            var ele = document.createElement('div');
+            ele.innerHTML=event.data.message;
+            div.appendChild(ele)
+          });
+        <\/script>
+        <div id='iframe-2-div' style="max-height: 200px;overflow: scroll;">
+          <h5>Hey I am iFrame2</h5>
+          <input type="text" id="iframe2-input"/>
+          <button>Send</button>
+          <div id="iframe-messages">
+            <h6>Messages</h4>
+          </div>
+        </div>`);
+      iframeDocument.close();
+    </script>
+  </body>
+</html>
