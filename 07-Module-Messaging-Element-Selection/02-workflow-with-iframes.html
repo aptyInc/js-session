@@ -1,0 +1,292 @@
+<html>
+  <head>
+    <title>iFrames Session</title>
+    <style>
+      .box {
+        width:200px; height:200px; border:1px solid black;
+      }
+      .step-dialog {
+        z-index: 6;
+        position: absolute;
+        top: 100px;
+        left: 300px;
+        will-change: transform;
+        display: flex;
+        align-items: center;
+        font-family: Roboto;
+        background: #a5bcff;
+        min-height: 32px;
+        min-width: calc(260px - 100px);
+        max-width: calc(260px + 50px);
+        padding: 5px 15px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        word-wrap: break-word;
+        cursor: default;
+        -webkit-box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
+        -moz-box-shadow: 0 2px 10px 0 rgba(0,0,0,0.1);
+        box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
+        transition: box-shadow 0.6s ease;
+        hyphens: none;
+      }
+
+      .step-dialog::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        pointer-events: none;
+        border-width: 5px;
+        right: 100%;
+        border-right-color: #a5bcff;
+      }
+    </style>
+  </head>
+  <body style="border: 1px solid black">
+    <div id='main-frame-1-div' style="width:200px; height:200px; border:1px solid black;max-height: 200px;overflow: scroll;">
+      <button onclick="startFlow()">Start Flow</button>
+      <h5>Hey I am Main Window</h5>
+      <input type="text" id="main-frame-input"/>
+      <button onclick="sendMessage()" id="main-frame-send" style="display:none">Send</button>
+      <div id="main-frame-messages">
+        <h6>Messages</h4>
+      </div>
+    </div>
+    <div id='iframe-div1'></div>
+    <div id='iframe-div2'></div>
+    <div class="step-dialog" id="step-view">
+      Sample Step View
+    </div>
+    <script>
+      var activeStepIndex = -1;
+      var iframe1Rect = {};
+      var step = [
+        {
+          name: 'step1',
+          content: 'Send message to iframe1',
+          iframes: [],
+          selector: '#main-frame-send',
+          type: 'click'
+        },
+        {
+          name: 'step2',
+          content: 'Send message to main',
+          iframes: ['#iframe1'],
+          selector: '#iframe-send',
+          type: 'click'
+        }
+      ];
+      function startFlow() {
+        activeStepIndex = 0;
+        var message = {type: 'step', step: step[activeStepIndex]};
+        postMessageToFrames(message);
+        setTimeout(function(){
+          console.log('in setTimeout');
+          var button = document.getElementById('main-frame-send');
+          if (button) {
+            button.style="display:block";
+          }
+        },2000)
+      }
+      function sendMessage(){
+        var input = document.getElementById('main-frame-input');
+        console.log('input ', input.value)
+        var message = {type: 'chat', message: input.value};
+        postMessageToFrames(message);
+        goToNextStep()
+      }
+
+      function goToNextStep() {
+        activeStepIndex++;
+        var message = {type: 'step', step: step[activeStepIndex]};
+        postMessageToFrames(message)
+      }
+
+      // Send messages to all the frames
+      function postMessageToFrames(message) {
+        window.postMessage(message, '*')
+        var iframe1 = document.getElementById('iframe1');
+        iframe1.contentWindow.postMessage(message, '*')
+        var iframe2 = document.getElementById('iframe2');
+        iframe2.contentWindow.postMessage(message, '*');
+      }
+
+      window.addEventListener('message', function(event){
+        console.log('In main window', event);
+        if (event.data.type === 'chat'){
+          attacheMessage(event.data);
+        } else if (event.data.type === 'step'){
+          attacheStep(event.data);
+        } else if (event.data.type === 'step-rect'){
+          if (iframe1Rect && iframe1Rect.left > 0) {
+            event.data.rect = {
+              width: event.data.rect.width,
+              height: event.data.rect.height,
+              left: event.data.rect.left + iframe1Rect.left,
+              top: event.data.rect.top + iframe1Rect.top,
+            }
+          }
+          updateStepStyles(step[activeStepIndex], event.data.rect)
+        }
+      });
+
+      function reRenderStep() {
+        if (activeStepIndex > -1) {
+          var data = {step: step[activeStepIndex]};
+          attacheStep(data)
+        }
+      }
+
+      function attacheStep(data) {
+        var ele = document.querySelector(data.step.selector);
+        if (ele) {
+          var rect = ele.getBoundingClientRect();
+          if (rect.left > 0) {
+            updateStepStyles(data.step, rect)
+          }
+        }
+      }
+
+      function updateStepStyles(step, rect) {
+        var stepView = document.getElementById('step-view');
+        stepView.innerHTML = step.content;
+        stepView.style=`left:${rect.left + rect.width + 10}; top:${rect.top - (rect.height/2)}`;
+      }
+
+      function attacheMessage(data) {
+        var div = document.getElementById('main-frame-messages');
+        var ele = document.createElement('div');
+        ele.innerHTML=data.message;
+        div.appendChild(ele);
+      }
+
+      window.addEventListener('scroll', function(){
+        reRenderStep();
+      }, true);
+
+      const mutationObserver = new MutationObserver((mutations) => {
+        var isValidChange = true;
+        for (const mutation of mutations) {
+          if (mutation.target.className.includes('step-dialog')) {
+            isValidChange = false;
+            break;
+          }
+        }
+        if (isValidChange) {
+          reRenderStep();
+        }
+      });
+
+      // dom changes config
+      mutationObserver.observe(window.document.body, {
+          attributes: true,
+          childList: true,
+          subtree: true,
+          attributeOldValue: true
+      });
+
+      var div1 = document.getElementById('iframe-div1');
+      var iframe = document.createElement('iframe');
+      iframe.setAttribute('id', 'iframe1');
+      iframe.setAttribute('src', 'about:blank');
+      div1.appendChild(iframe);
+      var iframeWindow = iframe.contentWindow;
+      var iframeDocument = iframe.contentDocument || iframeWindow.document;
+      iframeDocument.open();
+      iframeDocument.write(`
+        <script>
+          console.log('iframe 1');
+          window.addEventListener('message', function(event){
+            console.log('In iframe 1 window', event);
+            var div = document.getElementById('iframe-messages');
+            var ele = document.createElement('div');
+            if (event.data.message) {
+              ele.innerHTML=event.data.message;
+              div.appendChild(ele)
+            }
+
+            if(event.data.step && event.data.step.iframes[0] === '#iframe1') {
+              var ele = document.querySelector(event.data.step.selector);
+              if (ele) {
+                var rect = ele.getBoundingClientRect();
+                if (rect.left > 0) {
+                  var message = {type:'step-rect', rect:rect};
+                  window.top.postMessage(message, '*')
+                }
+              }
+            }
+
+          });
+          function sendMessage(){
+            var input = document.getElementById('iframe-input');
+            console.log('input ', input.value)
+            var message = {message: input.value};
+            // To send message in document
+            window.postMessage(message, '*')
+            // To send message to parent document
+            window.top.postMessage(message, '*')
+            // To send message to all documents
+            window.top.getElementByTag('iframe')
+          }
+        <\/script>
+        <div id='iframe-1-div' style="max-height: 200px;overflow: scroll;">
+          <h5>Hey I am iFrame1</h5>
+          <input type="text" id="iframe-input"/>
+          <button onclick="sendMessage()" id="iframe-send">Send</button>
+          <div id="iframe-messages">
+            <h6>Messages</h4>
+          </div>
+        </div>`);
+      iframeDocument.close();
+
+
+      var iframe1 = document.getElementById('iframe1');
+      iframe1Rect = (iframe1 && iframe1.getBoundingClientRect()) || {};
+
+      var div2 = document.getElementById('iframe-div2');
+      var iframe = document.createElement('iframe');
+      iframe.setAttribute('id', 'iframe2');
+      iframe.setAttribute('src', 'about:blank');
+      div2.appendChild(iframe);
+      var iframeWindow = iframe.contentWindow;
+      var iframeDocument = iframe.contentDocument || iframeWindow.document;
+      iframeDocument.open();
+      iframeDocument.write(`
+        <script>
+          console.log('iframe 2');
+          window.addEventListener('message', function(event){
+            console.log('In iframe 2 window', event)
+            var div = document.getElementById('iframe-messages');
+            var ele = document.createElement('div');
+            ele.innerHTML=event.data.message;
+            div.appendChild(ele)
+          });
+        <\/script>
+        <div id='iframe-2-div' style="max-height: 200px;overflow: scroll;">
+          <h5>Hey I am iFrame2</h5>
+          <input type="text" id="iframe2-input"/>
+          <button>Send</button>
+          <div id="iframe-messages">
+            <h6>Messages</h4>
+          </div>
+        </div>`);
+      iframeDocument.close();
+    </script>
+  </body>
+</html>
+
+<!--
+  Assignment for Day 1
+  1. Create an interactive chat with iframes
+  2. Create a flow with 2 steps minimum and the step balloon should be next the attached element.
+
+  Assignment for Day 2
+  1. Have 4 iframes and 4 steps.
+  2. individual frame Scroll and dom changes (Mutation) should work for all the frames
+  3. If the element is not visible hide the balloon/step
+  4. Main document scroll should reflect in iframe step/balloon
+-->

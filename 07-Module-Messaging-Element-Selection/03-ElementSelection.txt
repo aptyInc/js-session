@@ -1,0 +1,29 @@
+Supported regex pattern for chrome extensions
+https://developer.chrome.com/docs/extensions/mv3/match_patterns/
+
+Cross origin:
+  1. When there are cross origin iframes in the host application we need to
+    configure them in admin/mainfest.json in order to load the player bundle in that iframe.
+  2. We don't support cors-origin iframes in injected player as we can not access cross-origin iframes from main window
+
+
+Element Selection:
+  1. Pinking Element from host application:
+    We use optimal select library for selecting element
+    a. selector: actual element Selection
+    b. containers: ['parent1Selector', 'parent2Selector', etc.,]
+    c. frames: ['frame1' , 'frame1_subframe1']
+    Flow Steps:
+    1. Send the steps to all the frames.
+    2. identify frame.
+    3. identify element
+        a. will check container score for 75% match
+        b. check for element using selector.
+
+  2. CSS Selector / XPATH / custom script
+    a. selector/script
+    b. iframePath
+    Flow Steps:
+    1. Send the steps to all the frames.
+    2. identify frame.
+    3. identify element
