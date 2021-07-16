@@ -1,0 +1,37 @@
+Browser Extension Apty Player
+  1. Background script.
+  2. Content script -> Will get executed in a top window and all the iframes (including cross-origin iframes)
+
+Injected Apty player
+  1. Code will get injected to main window only from there we do inject services to all the same-origin iframes
+
+Main window code bundle
+  1. play-flow ui components got injected
+  2. play flow service got injected
+  Messaging service
+
+
+
+iframe window code bundle
+  1. play flow service got injected
+  Messaging service
+
+
+Flow play steps
+  1. Click on play flow from player list.
+  2. Send process item action to effects.
+  3. Get all the steps and identify the step to play.
+  4. Sending step data to all the services (Main window and all the iframe windows).
+  5. In service received step data.
+  6. Identified the element on screen.
+  7. Found x,y positions.
+  6. Checked element visibility.
+  7. Send step info back to the main window through messaging service.
+  8. updated redux state.
+  9. re render the UI component with updated info.
+
+Assignment day 3
+  1. Code Assignment1/Assignment2 into an chrome extension.
+  2. Write messaging service.
+  3. Refer login screen of PPM (username, password, login).
+  4. add start flow button on the login screen.
