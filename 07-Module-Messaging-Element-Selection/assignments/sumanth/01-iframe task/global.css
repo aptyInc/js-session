@@ -1,0 +1,26 @@
+* {
+	color: white;
+	font-family: sans-serif;
+}
+input {
+	padding: 0.5rem;
+	border-radius: 0.4rem;
+	display: block;
+	margin: 0.4rem 0rem;
+	color: black;
+}
+
+button {
+	background-color: #007bff;
+	padding: 0.5rem 1rem;
+	border: none;
+	border-radius: 0.4rem;
+	box-shadow: black 1px 1px 5px;
+	cursor: pointer;
+}
+button:hover {
+	transform: translateY(-0.1rem);
+}
+button:active {
+	transform: translateY(0.1rem);
+}

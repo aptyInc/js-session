@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<script src="./index.js"></script>
+		<link href="./index.css" rel="stylesheet" />
+		<link href="./global.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div>
+			<h4>I'm Main Page</h4>
+			<button onclick="executeWorkflow(this)">Start Workflow</button>
+			<input placeholder="Message for iframe" id="main-input" />
+			<button onclick="sendToIFrame()" id="main-send">Send</button>
+			<div id="main-inbox">
+				<h4>Inbox of main window:</h4>
+			</div>
+		</div>
+		<iframe src="./iframe.html" id="iframe1"></iframe>
+	</body>
+</html>
