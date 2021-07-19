@@ -1,0 +1,13 @@
+body {
+	background-color: #1f2739;
+	display: flex;
+}
+body > * {
+	border: 1px white solid;
+	border-radius: 0.4rem;
+	flex: 1;
+}
+
+body > div {
+	padding: 0.5rem;
+}

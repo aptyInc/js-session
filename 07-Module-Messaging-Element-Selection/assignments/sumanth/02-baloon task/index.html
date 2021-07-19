@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<script src="./index.js"></script>
+		<link href="./index.css" rel="stylesheet" />
+		<link href="./global.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div>
+			<div id="main-div">
+				<h4>I'm Main Page</h4>
+				<button onclick="startWorkflow()">Start Workflow</button>
+				<input placeholder="Message for iframe" id="main-input" />
+				<button onclick="chat()" id="main-send">Send</button>
+				<div id="main-inbox">
+					<h4>Inbox of main window:</h4>
+				</div>
+			</div>
+		</div>
+		<div>
+			<iframe src="./iframe1.html" id="iframe1" height="400px"></iframe>
+			<iframe src="./iframe2.html" id="iframe2" height="400px"></iframe>
+			<iframe src="./iframe3.html" id="iframe3" height="400px"></iframe>
+			<iframe src="./iframe4.html" id="iframe4" height="400px"></iframe>
+		</div>
+	</body>
+</html>
