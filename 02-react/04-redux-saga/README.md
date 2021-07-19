@@ -22,4 +22,4 @@
 - Navya: https://codesandbox.io/s/infallible-dhawan-1emux?file=/src/App.js
 - Sumanth: https://codesandbox.io/s/optimistic-proskuriakova-jxqq5?file=/src/App.js
 - Pooja: https://codesandbox.io/s/gracious-snyder-hls4f?file=/src/App.js
-- Anirudh: https://codesandbox.io/s/blue-glitter-h4xfc?file=/src/components/UserList.js
+- Anirudh: https://codesandbox.io/s/h4xfc?file=/src/App.js
