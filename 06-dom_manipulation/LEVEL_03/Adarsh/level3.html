@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="level3.css">
+    <title>Module2_Level3</title>
+</head>
+
+<!--Here is the body of the HTML file which has div containing the dropdown.
+    we can select items form dropdown to add them on the page -->
+
+<body>
+    <div id="container">
+        <div id="home" class="flex-center flex-column">
+        <h2>Hey, add new elements from dropDown</h2>
+        <form>
+            <select onchange="handleAdd(this)">
+                <option value="#"> -- Chose a option --</option>
+                <option>button</option>
+                <option>input</option>
+                <option>h1</option>
+                <option>p</option>
+                <option>span</option>
+                <option>form</option>
+            </select>
+        </form>
+    </div>
+</div>
+    <script src="level3.js"></script>
+</body>
+</html>
