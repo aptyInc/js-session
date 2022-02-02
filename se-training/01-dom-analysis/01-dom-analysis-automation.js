@@ -4,7 +4,7 @@ var makeSafe = function(fn){
     try{
       return fn.apply(this, arguments);
     }catch(error){
-      console.log("DOM Analysis error: ", error);
+      console.error("DOM Analysis error: ", error);
     }
   };
 };
@@ -91,6 +91,20 @@ var findShadowRoots = makeSafe((tag, element, elementsOutput) => {
   }
 });
 
+// This function will find and set max z-index
+var findMaxZIndex = makeSafe((element, elementsOutput) => {
+  var styles = window.getComputedStyle(element);
+  var zIndex = +(styles && styles.zIndex) || 0;
+  if (zIndex) {
+    if (!elementsOutput.maxZIndex) {
+      elementsOutput.maxZIndex = 0;
+    }
+    if (zIndex > elementsOutput.maxZIndex) {
+     elementsOutput.maxZIndex = zIndex;
+    }
+  }
+});
+
 // This function is the main function which will do the DOM analysis
 var startDomAnalysis = makeSafe((elements, elementsOutput) => {
   if (!elementsOutput) {
@@ -114,6 +128,9 @@ var startDomAnalysis = makeSafe((elements, elementsOutput) => {
 
     // Checking for attributes like class, id, etc.,
     findAttributes(element, elementsOutput);
+
+    // Checking for max z-index
+    findMaxZIndex(element, elementsOutput);
 
     // Checking for iFrames
     findIFrame(tag, element, elementsOutput);
