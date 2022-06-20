@@ -105,6 +105,21 @@ var findMaxZIndex = makeSafe((element, elementsOutput) => {
   }
 });
 
+var download = makeSafe((filename, text) => {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:json/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+});
+
+
+
 // This function is the main function which will do the DOM analysis
 var startDomAnalysis = makeSafe((elements, elementsOutput) => {
   if (!elementsOutput) {
@@ -145,3 +160,10 @@ var allElements = getAllElements(document);
 var domAnalysis = startDomAnalysis(allElements);
 
 console.log('String', JSON.stringify(domAnalysis));
+
+download("domAnalysis.json", JSON.stringify(domAnalysis));
+
+
+
+
+
